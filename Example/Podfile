@@ -2,6 +2,12 @@ use_frameworks!
 
 target 'JJStaggeredGridCollectionView_Example' do
   pod 'JJStaggeredGridCollectionView', :path => '../'
+  pod 'Alamofire', '4.3'
+  pod 'Moya'
+  pod 'Moya-ObjectMapper/RxSwift'
+  pod 'RxSwift'
+  pod 'RxOptional'
+  pod 'Kingfisher', '~> 3.0'
 
   target 'JJStaggeredGridCollectionView_Tests' do
     inherit! :search_paths
