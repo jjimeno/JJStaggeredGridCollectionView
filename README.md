@@ -8,6 +8,7 @@
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+The example uses [getty images API](http://developers.gettyimages.com/), you need to change the api key for the example to work.
 
 ## Requirements
 
@@ -22,7 +23,7 @@ pod "JJStaggeredGridCollectionView"
 
 ## Author
 
-jjimeno, jose.jimeno.linares@gmail.com
+jjimeno, https://github.com/jjimeno
 
 ## License
 
