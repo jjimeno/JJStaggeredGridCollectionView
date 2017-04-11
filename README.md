@@ -7,6 +7,12 @@
 
 ## Example
 
+<p align="center">
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img1.png" width=25% height=25%/>
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/output.gif" width=25% height=25%/>
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img2.png" width=25% height=25%/>
+</p>
+
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 The example uses [getty images API](http://developers.gettyimages.com/), you need to change the api key for the example to work.
 
@@ -20,10 +26,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "JJStaggeredGridCollectionView"
 ```
-
-## Author
-
-jjimeno, https://github.com/jjimeno
 
 ## License
 
