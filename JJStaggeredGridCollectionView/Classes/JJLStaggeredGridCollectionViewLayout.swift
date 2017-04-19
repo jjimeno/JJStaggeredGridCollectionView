@@ -7,37 +7,43 @@
 //
 
 import UIKit
-
+/// Type of position cell calculation for the staggered grid
 public enum JJStaggeredGridCellPositionArrangeType : Int
 {
+    /// This is the default value, each cell position are calculated taking the column positions  sequentially
     case Default = 0
-    case SmallestVertical = 1
+    // Each cell position are calculated taking the minimum Y of the current columns
+    case Smallest = 1
 }
+
+/// Staggered Grid UICollectionViewFlowLayout
+///
 public class JJStaggeredGridCollectionViewLayout: UICollectionViewFlowLayout {
     
     fileprivate var rects:[IndexPath:NSValue] = [:]
     fileprivate var suplementaryViews:[IndexPath:[String:NSValue]] = [:]
-    fileprivate var maxY:[CGFloat] = []
+    fileprivate var maxPos:[CGFloat] = []
     
+    /// number of columns the grid has
     @IBInspectable public var numColumns: Int = 2 {
         didSet {
             self.invalidateLayout()
-            self.resetY()
+            self.resetMaxPos()
         }
     }
-    
+    /// cell position type to calculate cell positions
     @IBInspectable public var cellPositionType : JJStaggeredGridCellPositionArrangeType = .Default
     {
         didSet{
             self.invalidateLayout()
-            self.resetY()
+            self.resetMaxPos()
         }
     }
     
-    fileprivate func resetY(){
-        maxY.removeAll()
+    fileprivate func resetMaxPos(){
+        maxPos.removeAll()
         for _ in 0..<self.numColumns{
-            maxY.append(0)
+            maxPos.append(0)
         }
     }
 
@@ -57,19 +63,35 @@ extension JJStaggeredGridCollectionViewLayout
         switch positionType {
         case .Default:
             return ( currentColumn, CGRect(x: columnPoints[currentColumn].x, y: columnPoints[currentColumn].y, width: size.width, height: size.height) )
-        case .SmallestVertical:
+        case .Smallest:
             var minIndex = 0
             var min = CGFloat.greatestFiniteMagnitude
             for a in 0..<columnPoints.count
             {
-                if columnPoints[a].y < min {
+                let colPoint = self.scrollDirection == UICollectionViewScrollDirection.vertical ? columnPoints[a].y : columnPoints[a].x
+                if colPoint < min {
                     minIndex = a
-                    min = columnPoints[a].y
+                    min = colPoint
                 }
             }
             return ( minIndex, CGRect(x: columnPoints[minIndex].x, y: columnPoints[minIndex].y, width: size.width, height: size.height ) )
             
         }
+    }
+    
+    static fileprivate func calculateWidthOrHeightToAddEachCell(fullBounds:CGRect, sectionInsets: UIEdgeInsets, numRowsOrCols:Int, interItemSpacing:CGFloat, scrollDirection: UICollectionViewScrollDirection) -> CGSize
+    {
+        var size = CGSize(width: 0, height: 0)
+        switch scrollDirection {
+        case .vertical:
+        let fullWidth:CGFloat = (fullBounds.size.width - sectionInsets.left - sectionInsets.right) - (CGFloat(numRowsOrCols - 1) * interItemSpacing)
+            size.width = ceil(fullWidth/CGFloat(numRowsOrCols))
+            break
+        case .horizontal:
+        let fullHeight:CGFloat = (fullBounds.size.height - sectionInsets.top - sectionInsets.bottom) - (CGFloat(numRowsOrCols - 1) * interItemSpacing)
+            size.height = ceil(fullHeight / CGFloat(numRowsOrCols))
+        }
+        return size
     }
     
     
@@ -84,50 +106,83 @@ extension JJStaggeredGridCollectionViewLayout
         if let colView = self.collectionView, let dataSource = colView.dataSource, let delegate = colView.delegate as? UICollectionViewDelegateFlowLayout {
             rects.removeAll()
             suplementaryViews.removeAll()
-            self.resetY()
+            self.resetMaxPos()
             
-            var minY :CGFloat = 0
-            var origins : [CGPoint] = [CGPoint](repeating: CGPoint(x: 0, y: minY), count: self.numColumns)
+            var minPos :CGPoint = CGPoint(x: 0, y: 0)
+            var origins : [CGPoint] = [CGPoint](repeating: CGPoint(x: minPos.x, y: minPos.y), count: self.numColumns)
             for section in 0..<dataSource.numberOfSections!(in: colView) {
                 let headerSize = delegate.collectionView?(colView, layout: self, referenceSizeForHeaderInSection: section) ?? self.headerReferenceSize
                 let interItemSpacing = delegate.collectionView?(colView, layout: self, minimumInteritemSpacingForSectionAt: section) ?? minimumInteritemSpacing
                 let sectionInsets = delegate.collectionView?(colView, layout: self, insetForSectionAt: section) ?? self.sectionInset
-                let w = ceilf(Float((colView.bounds.width - sectionInsets.left - sectionInsets.right  - (CGFloat(numColumns - 1) * interItemSpacing)) / CGFloat(numColumns)))
+                let size = JJStaggeredGridCollectionViewLayout.calculateWidthOrHeightToAddEachCell(fullBounds: colView.bounds, sectionInsets: sectionInsets, numRowsOrCols: self.numColumns, interItemSpacing: interItemSpacing, scrollDirection: self.scrollDirection)
                 let lineSpacing = delegate.collectionView?(colView, layout: self, minimumLineSpacingForSectionAt: section) ?? self.minimumLineSpacing
                 
-                minY = maxY.max()! + sectionInsets.top
+                if ( self.scrollDirection == .vertical){
+                    minPos.y = maxPos.max()! + sectionInsets.top
+                }else{
+                    minPos.x = maxPos.max()! + sectionInsets.left;
+                }
+                
                 //header
                 let headerFooterIndexPath = IndexPath(row: 0, section: section)
                 self.ensureSuplementaryCanAddValueForIndexPath(dict: &suplementaryViews, indexPath: headerFooterIndexPath)
-                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionHeader] = NSValue(cgRect:CGRect(x: 0, y: minY, width: headerSize.width, height: headerSize.height))
-                minY += headerSize.height
-                var xValue :CGFloat = sectionInsets.left
+                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionHeader] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: headerSize.width, height: headerSize.height))
+                if ( self.scrollDirection == .vertical){
+                    minPos.y += headerSize.height
+                }else
+                {
+                    minPos.x += headerSize.width
+                }
+                
                 for i in 0..<self.numColumns
                 {
-                    origins[i] = CGPoint(x: xValue, y: minY)
-                    xValue += CGFloat(w) + interItemSpacing
+                    origins[i] = CGPoint(x: minPos.x, y: minPos.y)
+                    if ( self.scrollDirection == .vertical){
+                        minPos.x += size.width + interItemSpacing
+                    }else
+                    {
+                        minPos.y += size.height + interItemSpacing
+                    }
                 }
-                var currentCol = 0
+                var currentColOrRow = 0
                 for cellIndex in 0..<dataSource.collectionView(colView, numberOfItemsInSection: section){
                     let indexPath = IndexPath(row: cellIndex, section: section)
                     let size = delegate.collectionView!(colView, layout: self, sizeForItemAt: indexPath)
-                    let (index, rect) = self.framePosition(positionType: self.cellPositionType, columnPoints: origins, currentColumn: currentCol, size: size)
+                    let (index, rect) = self.framePosition(positionType: self.cellPositionType, columnPoints: origins, currentColumn: currentColOrRow, size: size)
                     
-                    currentCol = index
-                    origins[currentCol].y += rect.size.height + lineSpacing
+                    currentColOrRow = index
+                    if ( self.scrollDirection == .vertical){
+                        origins[currentColOrRow].y += rect.size.height + lineSpacing
+                        maxPos[currentColOrRow] = origins[currentColOrRow].y
+                    }else{
+                        origins[currentColOrRow].x += rect.size.width + lineSpacing
+                        maxPos[currentColOrRow] = origins[currentColOrRow].x
+                    }
                     rects[indexPath] = NSValue(cgRect: rect)
-                    maxY[currentCol] = origins[currentCol].y
                     
-                    currentCol = currentCol + 1
-                    currentCol %= self.numColumns
+                    currentColOrRow = currentColOrRow + 1
+                    currentColOrRow %= self.numColumns
                 }
                 //footer
                 let footerSize = delegate.collectionView?(colView, layout: self, referenceSizeForFooterInSection: section) ?? self.footerReferenceSize
-                minY = maxY.max()!
+                if ( self.scrollDirection == .vertical){
+                    minPos.y = maxPos.max()!
+                    minPos.x = 0
+                }else{
+                    minPos.x = maxPos.max()!
+                    minPos.y = 0
+                }
                 self.ensureSuplementaryCanAddValueForIndexPath(dict: &suplementaryViews, indexPath: headerFooterIndexPath)
-                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionFooter] = NSValue(cgRect:CGRect(x: 0, y: minY, width: footerSize.width, height: footerSize.height))
-                minY += footerSize.height + sectionInsets.bottom
-                maxY[0] = minY      //to take the footer into account for the height
+                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionFooter] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: footerSize.width, height: footerSize.height))
+                if ( self.scrollDirection == .vertical){
+                    minPos.y += footerSize.height + sectionInsets.bottom
+                    maxPos[0] = minPos.y      //to take the footer into account for the height
+                }else
+                {
+                    minPos.x += footerSize.width + sectionInsets.right
+                    maxPos[0] = minPos.x      //to take the footer into account for the width
+                }
+                
             }
         }
     }
@@ -213,7 +268,11 @@ extension JJStaggeredGridCollectionViewLayout
     
     override open var collectionViewContentSize : CGSize {
         var contentSize = super.collectionViewContentSize
-        contentSize.height = maxY.max()!
+        if ( self.scrollDirection == .vertical){
+            contentSize.height = maxPos.max()!
+        }else{
+            contentSize.width = maxPos.max()!
+        }
         return contentSize
     }
     

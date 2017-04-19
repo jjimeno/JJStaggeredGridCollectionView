@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
 A staggered UICollectionView grid layout subclassing UICollectionViewFlowLayout, with configurable columns, multiple sections, section insets, header & footer & dynamic cell size height
                        DESC
 
-  s.homepage         = 'https://github.com/jjimeno/JJStaggeredGridCollectionView'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/jjimeno/JJStaggeredGridCollectionView.git'
+  s.screenshots     = 'https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img1.png?raw=true', 'https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img2.png?raw=true'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jjimeno' => 'jose.jimeno.linares@gmail.com' }
   s.source           = { :git => 'https://github.com/jjimeno/JJStaggeredGridCollectionView.git', :tag => s.version.to_s }
@@ -37,6 +37,6 @@ A staggered UICollectionView grid layout subclassing UICollectionViewFlowLayout,
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
