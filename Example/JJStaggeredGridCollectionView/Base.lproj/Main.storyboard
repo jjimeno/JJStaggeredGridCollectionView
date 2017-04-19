@@ -34,7 +34,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kET-DA-i4x">
-                                <rect key="frame" x="16" y="92" width="343" height="575"/>
+                                <rect key="frame" x="16" y="92" width="343" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pcx-XB-d6U" customClass="JJStaggeredGridCollectionViewLayout" customModule="JJStaggeredGridCollectionView">
                                     <size key="itemSize" width="250" height="100"/>
@@ -49,7 +49,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DefaultImageCollectionViewCell" id="JhK-EM-c6P" customClass="DefaultImageCollectionViewCell" customModule="JJStaggeredGridCollectionView_Example" customModuleProvider="target">
-                                        <rect key="frame" x="47" y="50" width="250" height="100"/>
+                                        <rect key="frame" x="46.5" y="50" width="250" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="100"/>
@@ -87,7 +87,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNV-BQ-aKc">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNV-BQ-aKc">
                                             <rect key="frame" x="8" y="8" width="327" height="34"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -109,7 +109,7 @@
                                     <rect key="frame" x="0.0" y="150" width="343" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGF-0a-5nW">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGF-0a-5nW">
                                             <rect key="frame" x="8" y="8" width="327" height="34"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,7 +137,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="kET-DA-i4x" secondAttribute="trailing" id="FEm-hM-sVa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bIg-Qc-lL2" secondAttribute="trailing" constant="8" id="FNH-a2-xUi"/>
                             <constraint firstItem="bIg-Qc-lL2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="IKu-vS-x3p"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kET-DA-i4x" secondAttribute="bottom" id="XnE-Ua-SyT"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kET-DA-i4x" secondAttribute="bottom" constant="8" id="XnE-Ua-SyT"/>
                             <constraint firstAttribute="trailing" secondItem="e4F-35-JaS" secondAttribute="trailing" constant="8" id="fON-Ex-sSn"/>
                             <constraint firstItem="kET-DA-i4x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gEk-4r-76y"/>
                             <constraint firstItem="e4F-35-JaS" firstAttribute="top" secondItem="bIg-Qc-lL2" secondAttribute="bottom" constant="8" id="lsJ-vw-f2v"/>
