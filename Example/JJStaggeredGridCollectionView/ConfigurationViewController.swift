@@ -201,7 +201,7 @@ public class ConfigurationViewController: UIViewController {
                 case .next(let number):
                     switch number{
                     case 1:
-                        self.config.positionType.value = JJStaggeredGridCellPositionArrangeType.SmallestVertical
+                        self.config.positionType.value = JJStaggeredGridCellPositionArrangeType.Smallest
                     default:
                         self.config.positionType.value = JJStaggeredGridCellPositionArrangeType.Default
                     }

@@ -185,12 +185,23 @@ extension ViewController : UICollectionViewDelegateFlowLayout
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let theLayout = collectionViewLayout as! JJStaggeredGridCollectionViewLayout
         let numCols = theLayout.numColumns
-        let insetX = theLayout.sectionInset.left + theLayout.sectionInset.right
-        let w = ((collectionView.bounds.size.width - insetX ) / CGFloat(numCols)) - theLayout.minimumInteritemSpacing;
+        
+        var inset = theLayout.sectionInset.left + theLayout.sectionInset.right
+        var w = ((collectionView.bounds.size.width - inset ) / CGFloat(numCols)) - theLayout.minimumInteritemSpacing;
         var h = w/2
+        if ( theLayout.scrollDirection == .horizontal){
+            inset = theLayout.sectionInset.top + theLayout.sectionInset.bottom
+            h = ((collectionView.bounds.size.height - inset ) / CGFloat(numCols)) - theLayout.minimumInteritemSpacing;
+            w = h/2
+        }
         
         if let img = self.modelAtIndexPath(indexPath: indexPath) {
-            h = w * CGFloat(img.dimens!.h!) / CGFloat(img.dimens!.w!)
+            if ( theLayout.scrollDirection == .vertical){
+                h = w * CGFloat(img.dimens!.h!) / CGFloat(img.dimens!.w!)
+            }else
+            {
+                w = h * CGFloat(img.dimens!.w!) / CGFloat(img.dimens!.h!)
+            }
         }
         
         return CGSize(width: w, height: h)
@@ -201,11 +212,21 @@ extension ViewController : UICollectionViewDelegateFlowLayout
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 60)
+        let theLayout = collectionViewLayout as! JJStaggeredGridCollectionViewLayout
+        if ( theLayout.scrollDirection == .vertical){
+            return CGSize(width: collectionView.bounds.size.width, height: 60)
+        }else{
+            return CGSize(width: 60, height: collectionView.bounds.size.height)
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 60)
+        let theLayout = collectionViewLayout as! JJStaggeredGridCollectionViewLayout
+        if ( theLayout.scrollDirection == .vertical){
+            return CGSize(width: collectionView.bounds.size.width, height: 60)
+        }else{
+            return CGSize(width: 60, height: collectionView.bounds.size.height)
+        }
     }
     
 }

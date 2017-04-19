@@ -8,15 +8,31 @@
 ## Example
 
 <p align="center">
-<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img1.png" width=25% height=25%/>
-<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/output.gif" width=25% height=25%/>
-<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img2.png" width=25% height=25%/>
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img1.png?raw=true" width=25% height=25%/>
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/output.gif?raw=true" width=25% height=25%/>
+<img src="https://github.com/jjimeno/JJStaggeredGridCollectionView/blob/master/imgs/img2.png?raw=true" width=25% height=25%/>
 </p>
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 The example uses [getty images API](http://developers.gettyimages.com/), you need to change the api key for the example to work.
 
-## Requirements
+## Usage
+JJStaggeredGridCollectionViewLayout is a subclass of [UICollectionViewFlowLayout](https://developer.apple.com/reference/uikit/uicollectionviewflowlayout).   
+
+You can use the following vars of UICollectionViewFlowLayout in JJStaggeredGridCollectionViewLayout:
+```swift
+open var minimumLineSpacing: CGFloat
+
+open var minimumInteritemSpacing: CGFloat
+
+open var scrollDirection: UICollectionViewScrollDirection // default is UICollectionViewScrollDirectionVertical
+
+open var headerReferenceSize: CGSize
+
+open var footerReferenceSize: CGSize
+
+open var sectionInset: UIEdgeInsets
+```
 
 ## Installation
 
