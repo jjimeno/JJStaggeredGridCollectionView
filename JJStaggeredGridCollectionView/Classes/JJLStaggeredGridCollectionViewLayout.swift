@@ -108,6 +108,7 @@ extension JJStaggeredGridCollectionViewLayout
             var minPos :CGPoint = CGPoint(x: 0, y: 0)
             var origins : [CGPoint] = [CGPoint](repeating: CGPoint(x: minPos.x, y: minPos.y), count: self.numColumns)
             for section in 0..<dataSource.numberOfSections!(in: colView) {
+                
                 let headerSize = delegate.collectionView?(colView, layout: self, referenceSizeForHeaderInSection: section) ?? self.headerReferenceSize
                 let interItemSpacing = delegate.collectionView?(colView, layout: self, minimumInteritemSpacingForSectionAt: section) ?? minimumInteritemSpacing
                 let sectionInsets = delegate.collectionView?(colView, layout: self, insetForSectionAt: section) ?? self.sectionInset
@@ -116,8 +117,10 @@ extension JJStaggeredGridCollectionViewLayout
                 
                 if ( self.scrollDirection == .vertical){
                     minPos.y = maxPos.max()! + sectionInsets.top
+                    minPos.x = sectionInsets.left
                 }else{
                     minPos.x = maxPos.max()! + sectionInsets.left;
+                    minPos.y = sectionInsets.top
                 }
                 
                 //header
