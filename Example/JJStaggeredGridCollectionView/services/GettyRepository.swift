@@ -12,16 +12,13 @@ import Moya
 import RxOptional
 import Moya_ObjectMapper
 
-enum GettyRepositoryError : Swift.Error {
-    case parseError
-}
 
 public protocol GettyRepository
 {
-    mutating func searchImages(search : String, pageSize:Int ,numPage : Int) -> Observable<[ImgModel]>
+    func searchImages(search : String, pageSize:Int ,numPage : Int) -> Observable<[ImgModel]>
 }
 
-struct GettyRepositoryMoyaImp : GettyRepository
+class GettyRepositoryMoyaImp : GettyRepository
 {
 
     let key : String
