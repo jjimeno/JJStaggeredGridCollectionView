@@ -34,6 +34,10 @@ open var footerReferenceSize: CGSize
 open var sectionInset: UIEdgeInsets
 ```
 
+To set the number of columns your layout has, just change
+```swift
+collectionviewLayout.numColumns = 3
+```
 ## Installation
 
 JJStaggeredGridCollectionView is available through [CocoaPods](http://cocoapods.org). To install

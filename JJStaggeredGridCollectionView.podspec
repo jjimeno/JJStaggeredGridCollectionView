@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JJStaggeredGridCollectionView'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'A staggered UICollectionView grid layout.'
 
 # This description is used to generate tags and improve search results.
@@ -38,5 +38,4 @@ A staggered UICollectionView grid layout subclassing UICollectionViewFlowLayout,
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
