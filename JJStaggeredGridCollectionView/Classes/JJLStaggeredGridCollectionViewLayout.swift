@@ -41,10 +41,7 @@ public class JJStaggeredGridCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     fileprivate func resetMaxPos(){
-        maxPos.removeAll()
-        for _ in 0..<self.numColumns{
-            maxPos.append(0)
-        }
+        maxPos = [CGFloat](repeatElement(0, count: self.numColumns))
     }
 
 }
