@@ -129,6 +129,21 @@ open class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        config.verticalScroll
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe({ event in
+                switch event
+                {
+                case let .next(value):
+                    (self.collectionView.collectionViewLayout as! JJStaggeredGridCollectionViewLayout).scrollDirection = value ? UICollectionViewScrollDirection.vertical : UICollectionViewScrollDirection.horizontal
+                    self.collectionView.reloadData()
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+        
         self.btnConfig
             .rx
             .tap
@@ -141,6 +156,7 @@ open class ViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
     }
 
     open override func didReceiveMemoryWarning() {
