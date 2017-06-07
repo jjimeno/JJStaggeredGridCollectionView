@@ -18,6 +18,7 @@ public struct JJStaggeredConfiguration
     public var lineSpacing: Variable<Int>
     public var sectionInset: Variable<UIEdgeInsets>
     public var positionType: Variable<JJStaggeredGridCellPositionArrangeType>
+    public var verticalScroll : Variable<Bool>
     
     init() {
         self.numColumns = Variable(Int(3))
@@ -25,6 +26,7 @@ public struct JJStaggeredConfiguration
         self.lineSpacing = Variable(Int(0))
         self.sectionInset = Variable(UIEdgeInsetsMake(0, 0, 0, 0))
         self.positionType = Variable(JJStaggeredGridCellPositionArrangeType.Default)
+        self.verticalScroll = Variable(true)
     }
 }
 
@@ -42,6 +44,7 @@ public class ConfigurationViewController: UIViewController {
     @IBOutlet public var txtSectionInsetRight : UITextField!
     @IBOutlet public var txtPositionType : UITextField!
     @IBOutlet public var btnBack:UIButton!
+    @IBOutlet public var switchVerticalScroll : UISwitch!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +56,7 @@ public class ConfigurationViewController: UIViewController {
         self.txtSectionInsetBottom.text = String(Int(self.config.sectionInset.value.bottom))
         self.txtSectionInsetRight.text = String(Int(self.config.sectionInset.value.right))
         self.txtPositionType.text = String(Int(self.config.positionType.value.rawValue))
+        self.switchVerticalScroll.setOn( Bool(self.config.verticalScroll.value), animated: true)
         self.configureRX()
     }
     
@@ -209,6 +213,18 @@ public class ConfigurationViewController: UIViewController {
                     break
                 }
             }).disposed(by: disposeBag)
+        
+        self.switchVerticalScroll
+            .rx
+            .value
+            .subscribe({event in
+                switch event{
+                case .next(let value):
+                    self.config.verticalScroll.value = value
+                default:
+                    break
+                }
+            }).disposed(by: disposeBag)
 
         
         self.btnBack
@@ -244,13 +260,14 @@ extension ConfigurationViewController :UIViewControllerTransitioningDelegate {
     
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController?
     {
-        return HalfSizePresentationController(presentedViewController: presented, presenting: presentingViewController)
+        return ConfigSizePresentationController(presentedViewController: presented, presenting: presentingViewController)
     }
 }
 
-class HalfSizePresentationController : UIPresentationController {
+class ConfigSizePresentationController : UIPresentationController {
     override open var frameOfPresentedViewInContainerView: CGRect { get {
-            return CGRect(x: 0, y: self.containerView!.bounds.height/2, width: self.containerView!.bounds.width, height: self.containerView!.bounds.height/2)
+        let height :CGFloat = 350.0
+            return CGRect(x: 0, y: self.containerView!.bounds.height - height, width: self.containerView!.bounds.width, height: height)
         }
     }
 }

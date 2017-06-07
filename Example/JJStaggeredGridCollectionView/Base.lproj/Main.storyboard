@@ -162,7 +162,7 @@
                         <viewControllerLayoutGuide type="bottom" id="D1n-Y5-tLk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ze3-V8-mY2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of columns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7l-KY-REC" userLabel="lblNumColumns">
@@ -243,8 +243,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vertical scroll?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjH-cY-tMx" userLabel="lblVerticalGrid">
+                                <rect key="frame" x="24" y="250" width="111.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lwy-U4-Jf8">
+                                <rect key="frame" x="302" y="245" width="51" height="31"/>
+                            </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9o-3Q-3Q7">
-                                <rect key="frame" x="8" y="250" width="359" height="30"/>
+                                <rect key="frame" x="8" y="300" width="359" height="30"/>
                                 <state key="normal" title="Back"/>
                             </button>
                         </subviews>
@@ -253,6 +262,7 @@
                             <constraint firstItem="bw1-CQ-wpR" firstAttribute="top" secondItem="kq1-za-Wkd" secondAttribute="bottom" constant="8" id="3Wa-n8-AYi"/>
                             <constraint firstItem="1X0-Ce-Dko" firstAttribute="trailing" secondItem="F7l-KY-REC" secondAttribute="trailing" id="41R-V3-02E"/>
                             <constraint firstItem="b27-qM-8Vb" firstAttribute="trailing" secondItem="BwB-eY-wQ9" secondAttribute="trailing" id="6Nt-iH-rlt"/>
+                            <constraint firstItem="rjH-cY-tMx" firstAttribute="leading" secondItem="F7l-KY-REC" secondAttribute="leading" id="7vh-hE-3MP"/>
                             <constraint firstItem="21W-sI-CxQ" firstAttribute="width" secondItem="MVR-tF-Po1" secondAttribute="width" id="8Bb-uD-OQo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Z67-hK-01y" secondAttribute="trailing" constant="8" id="8Ev-ee-xKN"/>
                             <constraint firstItem="1X0-Ce-Dko" firstAttribute="leading" secondItem="F7l-KY-REC" secondAttribute="leading" id="Ac7-nu-gYD"/>
@@ -272,6 +282,7 @@
                             <constraint firstItem="Qb1-n1-rsj" firstAttribute="top" secondItem="1X0-Ce-Dko" secondAttribute="bottom" constant="40" id="W18-UM-WXa"/>
                             <constraint firstItem="OPS-RI-mg2" firstAttribute="centerY" secondItem="Qb1-n1-rsj" secondAttribute="centerY" id="WQJ-Yv-zZf"/>
                             <constraint firstItem="MVR-tF-Po1" firstAttribute="width" secondItem="b27-qM-8Vb" secondAttribute="width" multiplier="0.5" id="WqC-IS-ksa"/>
+                            <constraint firstItem="rjH-cY-tMx" firstAttribute="top" secondItem="Qb1-n1-rsj" secondAttribute="bottom" constant="15" id="XhT-lZ-i0m"/>
                             <constraint firstItem="BwB-eY-wQ9" firstAttribute="leading" secondItem="Z67-hK-01y" secondAttribute="leading" id="YdU-pI-13o"/>
                             <constraint firstItem="a9r-51-rIt" firstAttribute="width" secondItem="MVR-tF-Po1" secondAttribute="width" id="Zb2-kz-O4w"/>
                             <constraint firstItem="F7l-KY-REC" firstAttribute="top" secondItem="Fsv-A9-lap" secondAttribute="bottom" constant="20" id="Zsu-UR-AYi"/>
@@ -279,7 +290,9 @@
                             <constraint firstItem="l5I-9N-ipa" firstAttribute="trailing" secondItem="b27-qM-8Vb" secondAttribute="trailing" id="bil-rx-hMm"/>
                             <constraint firstAttribute="trailing" secondItem="m9o-3Q-3Q7" secondAttribute="trailing" constant="8" id="cD0-3q-SR0"/>
                             <constraint firstItem="21W-sI-CxQ" firstAttribute="top" secondItem="a9r-51-rIt" secondAttribute="bottom" id="dJ2-rx-316"/>
+                            <constraint firstItem="lwy-U4-Jf8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rjH-cY-tMx" secondAttribute="trailing" id="e5k-vo-MFV"/>
                             <constraint firstItem="OPS-RI-mg2" firstAttribute="trailing" secondItem="Z67-hK-01y" secondAttribute="trailing" id="eeV-3R-ZyY"/>
+                            <constraint firstItem="lwy-U4-Jf8" firstAttribute="trailing" secondItem="Z67-hK-01y" secondAttribute="trailing" id="fOc-6E-Agw"/>
                             <constraint firstItem="l5I-9N-ipa" firstAttribute="leading" secondItem="a9r-51-rIt" secondAttribute="trailing" id="g3P-6p-asH"/>
                             <constraint firstItem="BwB-eY-wQ9" firstAttribute="centerY" secondItem="kq1-za-Wkd" secondAttribute="centerY" id="hCo-C4-pTd"/>
                             <constraint firstItem="a9r-51-rIt" firstAttribute="leading" secondItem="b27-qM-8Vb" secondAttribute="leading" id="jaz-6C-zG3"/>
@@ -294,14 +307,16 @@
                             <constraint firstItem="Qb1-n1-rsj" firstAttribute="leading" secondItem="F7l-KY-REC" secondAttribute="leading" id="w30-iN-SiK"/>
                             <constraint firstItem="Z67-hK-01y" firstAttribute="leading" secondItem="F7l-KY-REC" secondAttribute="trailing" constant="8" id="w9r-9H-HR4"/>
                             <constraint firstItem="MVR-tF-Po1" firstAttribute="centerX" secondItem="b27-qM-8Vb" secondAttribute="centerX" id="wgl-8E-eTA"/>
+                            <constraint firstItem="lwy-U4-Jf8" firstAttribute="centerY" secondItem="rjH-cY-tMx" secondAttribute="centerY" id="wzG-5y-FuF"/>
                             <constraint firstItem="BwB-eY-wQ9" firstAttribute="leading" secondItem="kq1-za-Wkd" secondAttribute="trailing" constant="8" id="yyg-gV-7vK"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="300"/>
+                    <size key="freeformSize" width="375" height="350"/>
                     <connections>
                         <outlet property="btnBack" destination="m9o-3Q-3Q7" id="j3S-Ly-N5P"/>
+                        <outlet property="switchVerticalScroll" destination="lwy-U4-Jf8" id="mVd-G8-8rz"/>
                         <outlet property="txtItemSpacing" destination="BwB-eY-wQ9" id="LZa-3G-i0e"/>
                         <outlet property="txtLineSpacing" destination="b27-qM-8Vb" id="Wca-NM-Z3F"/>
                         <outlet property="txtNumColumns" destination="Z67-hK-01y" id="3hY-XN-q8q"/>
